@@ -1,0 +1,23 @@
+### Gradle ###
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### Working data ###
+/output/
+/logs/
+
+### Mac files
+.DS_Store
+
+### Private data ###
+private.md

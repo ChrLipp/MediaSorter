@@ -1,0 +1,15 @@
+// Gradle updates
+wrapper {
+	gradleVersion GRADLE_VERSION
+}
+
+// Dependency updates
+tasks.named("dependencyUpdates").configure {
+	rejectVersionIf {
+		['alpha', 'beta', 'm', 'rc', 'snapshot'].any { qualifier ->
+			it.candidate.version.toLowerCase().contains(qualifier) &&
+					!it.candidate.version.toLowerCase().contains('maven')
+		}
+	}
+	gradleReleaseChannel="current"
+}

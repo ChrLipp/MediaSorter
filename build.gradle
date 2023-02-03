@@ -1,0 +1,69 @@
+plugins {
+	id 'com.github.ben-manes.versions' version "$GRADLE_VERSIONS_PLUGIN_VERSION"
+	id 'org.springframework.boot' version "$SPRING_BOOT_VERSION"
+	id 'io.spring.dependency-management' version "$SPRING_DEPENDENCY_VERSION"
+	id 'org.jetbrains.kotlin.plugin.spring' version "$KOTLIN_VERSION"
+	id 'org.jetbrains.kotlin.jvm' version "$KOTLIN_VERSION"
+	id "org.jetbrains.kotlin.kapt" version "$KOTLIN_VERSION"
+}
+
+apply from: 'gradle/updates.gradle'
+apply from: 'gradle/version.gradle'
+
+// Dependencies
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-logging'
+	implementation 'org.jetbrains.kotlin:kotlin-reflect'
+	implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+	implementation "io.github.microutils:kotlin-logging-jvm:$LOGGING_VERSION"
+	implementation "info.picocli:picocli:$PICOCLI_VERSION"
+
+	kapt "info.picocli:picocli:$PICOCLI_VERSION"
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+// Variables and constants
+ext {
+	ARGS = [
+		// help
+//		'-h'
+		// version
+//		'-V'
+		// option
+		'-o', 'Argument'
+	]
+}
+
+// Java options
+java.sourceCompatibility = JavaVersion.VERSION_18
+java.targetCompatibility = JavaVersion.VERSION_18
+
+// Kotlin options
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+	kotlinOptions {
+		freeCompilerArgs = ['-Xjsr305=strict']
+		jvmTarget = '18'
+	}
+}
+
+kapt {
+	arguments {
+		arg("project", "${project.group}/${project.name}")
+	}
+}
+
+// Test options
+tasks.withType(Test).all {
+	useJUnitPlatform()
+}
+
+// Spring Boot options
+bootRun {
+	args ARGS
+}

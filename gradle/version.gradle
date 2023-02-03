@@ -1,0 +1,18 @@
+// Define directory for version.txt
+ext.genOutputDir = file("$buildDir/generated-resources")
+
+// Write version.txt for picocli
+task generateVersionTxt {
+	description 'Creates a version.txt file that is added to the root of the jar'
+	ext.versionFile = file("$genOutputDir/version.txt")
+	outputs.file(versionFile)
+	doFirst {
+		ext.versionFile.text = "$version"
+	}
+}
+
+// execute it with processResources
+tasks.named("processResources") { finalizedBy("generateVersionTxt")}
+
+// include the generated files in the source sets
+sourceSets.main.output.dir genOutputDir, builtBy: generateVersionTxt
