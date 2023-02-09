@@ -1,4 +1,4 @@
-package at.corba.startertemplate
+package at.corba.tools.media_sorter
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

@@ -22,6 +22,7 @@ dependencies {
 	implementation 'org.jetbrains.kotlin:kotlin-stdlib'
 	implementation "io.github.microutils:kotlin-logging-jvm:$LOGGING_VERSION"
 	implementation "info.picocli:picocli:$PICOCLI_VERSION"
+	implementation "com.drewnoakes:metadata-extractor:$METADATA_VERSION"
 
 	kapt "info.picocli:picocli:$PICOCLI_VERSION"
 
@@ -31,12 +32,14 @@ dependencies {
 // Variables and constants
 ext {
 	ARGS = [
-		// help
-//		'-h'
-		// version
-//		'-V'
-		// option
-		'-o', 'Argument'
+//		'-h'                // help
+//		'-V'                // version
+		'-i', '/Users/christian/Pictures/2017',
+		'-o', '/Users/christian/Pictures/2017',
+//		'-t'
+//		'-e', '/Volumes/photo/2018/201801/20180120 Feier Mandi/DSCN6618.JPG'
+//		'-e', '/Users/christian/Pictures/2017/IMG_4496.JPG'
+//		'-e', '/Users/christian/Pictures/2017/IMG_4475.MOV'
 	]
 }
 

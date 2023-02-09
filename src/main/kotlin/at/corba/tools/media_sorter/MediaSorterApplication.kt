@@ -1,4 +1,4 @@
-package at.corba.startertemplate
+package at.corba.tools.media_sorter
 
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.ExitCodeGenerator
@@ -9,8 +9,8 @@ import picocli.CommandLine
 import kotlin.system.exitProcess
 
 @SpringBootApplication
-class StarterTemplateApplication(
-    private val commandLineParameter: StarterTemplateCommand
+class MediaSorterApplication(
+    private val commandLineParameter: MediaSorterCommand
 ) : CommandLineRunner, ExitCodeGenerator {
     /** Variable for passing the exit code */
     private var exitCode: Int = 0
@@ -25,6 +25,6 @@ class StarterTemplateApplication(
 }
 
 fun main(args: Array<String>) {
-    val context = runApplication<StarterTemplateApplication>(*args)
+    val context = runApplication<MediaSorterApplication>(*args)
     exitProcess(SpringApplication.exit(context))
 }

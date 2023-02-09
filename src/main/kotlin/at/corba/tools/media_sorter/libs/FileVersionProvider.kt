@@ -1,4 +1,4 @@
-package at.corba.startertemplate
+package at.corba.tools.media_sorter.libs
 
 import picocli.CommandLine
 import java.io.File
