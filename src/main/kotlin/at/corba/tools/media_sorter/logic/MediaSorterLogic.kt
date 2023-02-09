@@ -3,7 +3,6 @@ package at.corba.tools.media_sorter.logic
 import com.drew.imaging.ImageMetadataReader
 import com.drew.metadata.exif.ExifIFD0Directory
 import com.drew.metadata.exif.ExifSubIFDDirectory
-import com.drew.metadata.file.FileSystemDirectory
 import com.drew.metadata.mov.metadata.QuickTimeMetadataDirectory
 import mu.KotlinLogging
 import org.springframework.stereotype.Component
@@ -52,15 +51,9 @@ class MediaSorterLogic
             if (date == null) {
                 date = geMetadataISubIFDDate(file)
             }
-            if (date == null) {
-                date = geMetadataFileDirectoryDate(file)
-            }
         }
         else if (isVideo(file)) {
             date = geMetadataQuicktimeMetadataDate(file)
-            if (date == null) {
-                date = geMetadataFileDirectoryDate(file)
-            }
         }
         else {
             log.debug { "Unknown file: ${file.absoluteFile}" }
@@ -115,20 +108,6 @@ class MediaSorterLogic
             ?: return null
 
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
-    }
-
-    private fun geMetadataFileDirectoryDate(file: File) : LocalDateTime? {
-        val directory = ImageMetadataReader
-            .readMetadata(file)
-            .getFirstDirectoryOfType(FileSystemDirectory::class.java)
-            ?: return null
-        val date = directory
-            .getDate(FileSystemDirectory.TAG_FILE_MODIFIED_DATE, TimeZone.getDefault())
-            ?: return null
-
-        return LocalDateTime
-            .ofInstant(date.toInstant(), ZoneId.systemDefault())
-            .plusHours(1)
     }
 
     private fun geMetadataQuicktimeMetadataDate(file: File) : LocalDateTime? {
